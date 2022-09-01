@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
     if (user) return res.send("user already exist");
     user = await User.create(req.body);
     const token = newToken(user);
-    return res.status(201).send({ token });
+    return res.status(200).send({ token });
   } catch (err) {
     return res.status(500).send(err.message);
   }
@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
     const match = user.check(req.body.password);
     if (!match) return res.send("wrong password!");
     const token = newToken(user);
-    return res.send({ status:200,
+    return res.status(200).send({
       message: "Logged in successfully",token });
   } catch (err) {
     return res.status(500).send(err.message);
